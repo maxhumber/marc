@@ -18,11 +18,6 @@ class ListEncoder:
             return decoder.get(y)
         return [decoder.get(yi) for yi in y]
 
-throws = [
-    'rock', 'rock', 'paper', 'scissors', 'paper', 'rock', 'rock',
-    'scissors', 'paper', 'paper', 'paper', 'rock', 'paper', 'rock'
-]
-
 def chain_to_matrix(chain):
     counts = Counter(zip(chain, chain[1:]))
     unique = len(set(chain))
