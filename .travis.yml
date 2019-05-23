@@ -1,0 +1,15 @@
+language: python
+python:
+- '3.6'
+deploy:
+  provider: pypi
+  user: maxhumber
+  password:
+    secure: Myf60fQRMDMJpiZKUPo+/mfxEzAUK7zzv1ur84RPr4xcms6QHIZtPiS+d5z88oiwdNOxNWCHeInBWPHVn5OCGCOrA0zIFEV2IDjtX5f5Mgd3I8c3QfDPyxFhbyE/bayh5m2CvTCOAdKuWPpkDokH8eECr2p3Vr0be1C9mTwtaV6QTizRFvaermjjO0gMyn9y9sf00vVpauEJV4JsB7dq1U5OhF/PtW0VysoBLMcwFQdnNZQCDmvV/paH8FELIwZlwIarXx3P3QgR6kjohh+mlrI2UfNU/fNX0BCb8gHxoCD1BZciyyATY8wzRAXrj6tQECwQHu/6q5ED8ulzV1K4XDjoRieTSjcHkynNo+DfanGUWAm5VTr2tDBdtpuQQVjbnd6LFrcYIKpctt2t+Tl57N+FQaSe9uOTuqpUtAsAC7utYqL/1vP6/WFiheoDalaqjOIb1HzdE1e9bYfeEOtgbZAhn44z3XFYulqU+wJYfVOsLLhAgf8Yq9rFpFKsknQDXtzH8AlRc0XiDxwoFRq9iLHg69rAlCMuultKUG1+6wI0exi4FOag96i4TQ1zZ8TQPsSrEUkcPs3Aq7GlUdUIqEPvHuJBNiwP7xrv5JUbnFyYfbcGGZtRs2/4I9gVds9OxGdX5DcRWY257c0HQYwvGObSvPbfQeLQrcKedzsSfdE=
+
+install:
+  - "pip install -e ."
+  - "pip install pytest"
+
+script:
+  - pytest tests/
