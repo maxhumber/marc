@@ -54,7 +54,10 @@ class MarkovChain:
         random_next = random.choices(range(len(probs)), weights=probs)[0]
         return self.encoder.inverse_transform(random_next)
 
-    def generate_states(self, current_state, n=10):
+    def generate_states(self, current_state=None, n=10):
+        if not current_state:
+            possible = list(self.encoder.encoder.keys())
+            current_state = random.choice()
         future_states = []
         for _ in range(n):
             random_next = self.next_state(current_state)

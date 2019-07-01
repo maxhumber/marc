@@ -6,18 +6,19 @@ with open('README.md') as f:
 
 setup(
     name='marc',
-    version='0.1.1',
-    description='Simple Markov Chains in Pure Python',
+    version='1.0',
+    description='Markov Chains in Pure Python',
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
     keywords=[
-        'markov', 'markov chain', 'transition matrix'
+        'markov', 'markov chain', 'transition matrix', 'list encoder'
     ],
     url='https://github.com/maxhumber/marc',
     author='Max Humber',
