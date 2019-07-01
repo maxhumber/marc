@@ -6,8 +6,8 @@ with open('README.md') as f:
 
 setup(
     name='marc',
-    version='1.0',
-    description='Markov Chains in Pure Python',
+    version='1.0.1',
+    description='Markov chains in pure python',
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[

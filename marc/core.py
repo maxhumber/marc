@@ -57,7 +57,7 @@ class MarkovChain:
     def generate_states(self, current_state=None, n=10):
         if not current_state:
             possible = list(self.encoder.encoder.keys())
-            current_state = random.choice()
+            current_state = random.choice(possible)
         future_states = []
         for _ in range(n):
             random_next = self.next_state(current_state)
