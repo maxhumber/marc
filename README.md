@@ -5,13 +5,13 @@
   <a href="https://opensource.org/licenses/MIT"><img alt="MIT" src="https://img.shields.io/github/license/maxhumber/marc.svg"></a>
   <a href="https://travis-ci.org/maxhumber/marc"><img alt="Travis" src="https://img.shields.io/travis/maxhumber/marc.svg"></a>
   <a href="https://pypi.python.org/pypi/marc"><img alt="PyPI" src="https://img.shields.io/pypi/v/marc.svg"></a>
-  <a href="https://pypi.python.org/pypi/marc"><img alt="Downloads" src="https://img.shields.io/pypi/dw/marc.svg"></a>
+  <a href="https://pypi.python.org/pypi/marc"><img alt="Downloads" src="https://img.shields.io/pypi/dm/marc.svg"></a>
 </p>
 
 
 ### About
 
-marc is a "proof-of-concept" package that demonstrates the possibility of building Markov chains in pure python.
+marc is a small, but flexible, library that implements Markov chains in pure python.
 
 ### Usage
 
@@ -37,6 +37,9 @@ mc.next_state('Scissors')
 # 'Paper'
 
 ```
+
 ### Install
 
-`pip install marc`
+```
+pip install marc
+```

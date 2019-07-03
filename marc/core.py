@@ -1,46 +1,4 @@
 import random
-from collections import Counter
-
-class ListEncoder:
-    def fit(self, y):
-        self.encoder = {v:k for k, v in enumerate(set(y))}
-        return self
-    def transform(self, y):
-        if not isinstance(y, list):
-            return self.encoder.get(y)
-        return [self.encoder.get(yi) for yi in y]
-    def fit_transform(self, y):
-        self.fit(y)
-        return self.transform(y)
-    def inverse_transform(self, y):
-        decoder = {v:k for k, v in self.encoder.items()}
-        if not isinstance(y, list):
-            return decoder.get(y)
-        return [decoder.get(yi) for yi in y]
-
-def chain_to_matrix(chain):
-    counts = Counter(zip(chain, chain[1:]))
-    unique = len(set(chain))
-    matrix = [[0 for _ in range(unique)] for _ in range(unique)]
-    for (x, y), count in counts.items():
-        matrix[x][y] = count
-    return matrix
-
-def normalize(x):
-    x_sum = sum(x)
-    return [i / x_sum for i in x]
-
-def normalize_matrix(matrix):
-    normalized_matrix = []
-    for row in matrix:
-        normalized_row = normalize(row)
-        normalized_matrix.append(normalized_row)
-    return normalized_matrix
-
-def chain_to_transition_matrix(chain):
-    matrix = chain_to_matrix(chain)
-    transition_matrix = normalize_matrix(matrix)
-    return transition_matrix
 
 class MarkovChain:
     def __init__(self, chain):
@@ -64,3 +22,42 @@ class MarkovChain:
             future_states.append(random_next)
             current_state = random_next
         return future_states
+
+def chain_to_matrix(chain):
+    unique = len(set(chain))
+    matrix = [[0] * unique for _ in range(unique)]
+    for (x, y) in zip(chain, chain[1:]):
+        matrix[x][y] += 1
+    return matrix
+
+def normalize_matrix(matrix):
+    for row in matrix:
+        rsum = sum(row)
+        if rsum > 0:
+            row[:] = [i / rsum for i in row]
+    return matrix
+
+def chain_to_transition_matrix(chain):
+    matrix = chain_to_matrix(chain)
+    transition_matrix = normalize_matrix(matrix)
+    return transition_matrix
+
+class ListEncoder:
+    def fit(self, y):
+        self.encoder = {v:k for k, v in enumerate(set(y))}
+        return self
+
+    def transform(self, y):
+        if not isinstance(y, list):
+            return self.encoder.get(y)
+        return [self.encoder.get(yi) for yi in y]
+
+    def fit_transform(self, y):
+        self.fit(y)
+        return self.transform(y)
+
+    def inverse_transform(self, y):
+        decoder = {v:k for k, v in self.encoder.items()}
+        if not isinstance(y, list):
+            return decoder.get(y)
+        return [decoder.get(yi) for yi in y]

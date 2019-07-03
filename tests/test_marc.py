@@ -40,5 +40,3 @@ def test_markov_chain_state_doesnt_exist(throws):
     m = MarkovChain(throws)
     with pytest.raises(TypeError):
         m.next_state('✂️')
-
-#

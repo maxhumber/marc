@@ -6,7 +6,7 @@ with open('README.md') as f:
 
 setup(
     name='marc',
-    version='1.0.1',
+    version='1.0.2',
     description='Markov chains in pure python',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -14,8 +14,6 @@ setup(
         'Development Status :: 5 - Production/Stable',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
     ],
     keywords=[
         'markov', 'markov chain', 'transition matrix', 'list encoder'
