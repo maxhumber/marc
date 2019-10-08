@@ -11,9 +11,11 @@
 
 ### About
 
-marc is a small, but flexible, library that implements Markov chains in pure python.
+marc is a small, but flexible Markov chain generator. 
 
 ### Usage
+
+marc is easy to use:
 
 ```python
 from marc import MarkovChain
@@ -27,19 +29,21 @@ chain = [
 
 mc = MarkovChain(chain)
 
-mc.next_state('Rock')
+mc.next('Rock')
 # 'Rock'
 
-mc.generate_states('Paper', n=5)
+mc.next('Paper', n=5)
 # ['Scissors', 'Paper', 'Rock', 'Paper', 'Scissors']
 
-mc.next_state('Scissors')
+mc.next('Scissors')
 # 'Paper'
 
+mc.next()
+# 'Scissors'
 ```
 
 ### Install
 
 ```
-pip install marc
+pip install -U marc
 ```
