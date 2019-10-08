@@ -6,21 +6,20 @@ class MarkovChain:
         encoded_chain = self.encoder.fit_transform(chain)
         self.transition_matrix = chain_to_transition_matrix(encoded_chain)
 
-    def next_state(self, current_state):
-        encoded_state = self.encoder.transform(current_state)
-        probs = self.transition_matrix[encoded_state]
-        random_next = random.choices(range(len(probs)), weights=probs)[0]
-        return self.encoder.inverse_transform(random_next)
-
-    def generate_states(self, current_state=None, n=10):
+    def next(self, current_state=None, n=1):
         if not current_state:
             possible = list(self.encoder.encoder.keys())
             current_state = random.choice(possible)
         future_states = []
         for _ in range(n):
-            random_next = self.next_state(current_state)
+            encoded_state = self.encoder.transform(current_state)
+            probs = self.transition_matrix[encoded_state]
+            random_next = random.choices(range(len(probs)), weights=probs)[0]
+            random_next = self.encoder.inverse_transform(random_next)
             future_states.append(random_next)
             current_state = random_next
+        if n == 1:
+            return future_states[0]
         return future_states
 
 def chain_to_matrix(chain):

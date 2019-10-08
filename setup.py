@@ -6,7 +6,7 @@ with open('README.md') as f:
 
 setup(
     name='marc',
-    version='1.0.2',
+    version='2.0',
     description='Markov chains in pure python',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -22,7 +22,7 @@ setup(
     author='Max Humber',
     author_email='max.humber@gmail.com',
     license='MIT',
-    packages=['marc'],
+    py_modules=['marc'],
     python_requires='>=3.6',
     setup_requires=['setuptools>=38.6.0']
 )
