@@ -65,7 +65,7 @@ class MarkovChain:
 
         chain.next(1)
         # 2
-        
+
         chain.next(3, n=5)
         # [2, 1, 3, 2, 1]
         ```
