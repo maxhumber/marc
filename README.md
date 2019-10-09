@@ -59,7 +59,7 @@ next(chain)
 
 #### Example
 
-Here's a fully worked example of using marc with a block of text (built with [quote](https://github.com/maxhumber/quote)):
+A fully worked example of marc in action (block of text provided by [quote](https://github.com/maxhumber/quote)):
 
 ```python
 import random

@@ -43,11 +43,3 @@ def test_markov_chain_with_size(throws):
     m = MarkovChain(throws)
     next_states = m.next('paper', n=2)
     assert len(next_states) == 2
-
-# %%timeit
-# m = MarkovChain(throws)
-# [next(m) for _ in range(1000)]
-#
-# %%timeit
-# m = MarkovChain(throws)
-# m.next(n=1000)
