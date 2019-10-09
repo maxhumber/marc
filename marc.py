@@ -1,7 +1,8 @@
 import random
 
+
 class MarkovChain:
-    '''Markov chain generator
+    """Markov chain generator
 
     Attributes:
 
@@ -28,19 +29,20 @@ class MarkovChain:
     chain.next(3, n=5)
     # [2, 1, 3, 2, 1]
     ```
-    '''
-    def __init__(self, sequence):
-        '''Params:
+    """
 
-        - sequence (list): Sequence to convert to a Markov chain
-        '''
+    def __init__(self, sequence):
+        """Params:
+
+        - sequence (list): Sequence to convert into a Markov chain
+        """
         self.encoder = ListEncoder()
         encoded_sequence = self.encoder.fit_transform(sequence)
         self.matrix = self._sequence_to_matrix(encoded_sequence)
         self.state = None
 
     def __repr__(self):
-        return 'MarkovChain()'
+        return "MarkovChain()"
 
     def __iter__(self):
         return self
@@ -50,7 +52,7 @@ class MarkovChain:
         return self.state
 
     def next(self, state=None, n=1):
-        '''Generate the next state
+        """Generate the next state
 
         Params:
 
@@ -69,7 +71,7 @@ class MarkovChain:
         chain.next(3, n=5)
         # [2, 1, 3, 2, 1]
         ```
-        '''
+        """
         if not state:
             possible = list(self.encoder.index_.keys())
             state = random.choice(possible)
@@ -97,8 +99,9 @@ class MarkovChain:
                 row[:] = [i / rsum for i in row]
         return matrix
 
+
 class ListEncoder:
-    '''List to Integer Transformer
+    """List to Integer Transformer
 
     Methods:
 
@@ -121,53 +124,58 @@ class ListEncoder:
     encoder.inverse_transform(1)
     # 'rock'
     ```
-    '''
+    """
 
     def __repr__(self):
-        return 'ListEncoder()'
+        return "ListEncoder()"
 
     def __dir__(self):
-        return ['fit', 'transform', 'fit_transform', 'index_']
+        return ["fit", "transform", "fit_transform", "index_"]
 
     def fit(self, y):
-        '''Fit the Transformer
+        """Fit the Transformer
 
         Params:
 
         - y (list): Collection to index
-        '''
-        self.index_ = {v:k for k, v in enumerate(set(y))}
-        self.decoder = {v:k for k, v in self.index_.items()}
+        """
+        self.index_ = {v: k for k, v in enumerate(set(y))}
+        self.decoder = {v: k for k, v in self.index_.items()}
         return self
 
     def transform(self, y):
-        '''Transform according to the learned index
+        """Transform according to the learned index
 
         Params:
 
         - y (str|list): Item or collection to transform
-        '''
+        """
         if not isinstance(y, list):
             return self.index_.get(y)
         return [self.index_.get(yi) for yi in y]
 
     def fit_transform(self, y):
-        '''Fit and transform
+        """Fit and transform
 
         Params:
 
         - y (list): Collection to fit and transform
-        '''
+        """
         self.fit(y)
         return self.transform(y)
 
     def inverse_transform(self, y):
-        '''Reverse the transform
+        """Reverse the transform
 
         Params:
 
         - y (str|list): Item or collection to reverse lookup
-        '''
+        """
         if not isinstance(y, list):
             return self.decoder.get(y)
         return [self.decoder.get(yi) for yi in y]
+
+
+# TODO:
+# fix next bug, and store the state
+# update readme to reflect changed variable names
