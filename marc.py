@@ -75,14 +75,15 @@ class MarkovChain:
         if not state:
             possible = list(self.encoder.index_.keys())
             state = random.choice(possible)
+        self.state = state
         states = []
         for _ in range(n):
-            encoded_state = self.encoder.transform(state)
+            encoded_state = self.encoder.transform(self.state)
             probs = self.matrix[encoded_state]
             next_state = random.choices(range(len(probs)), weights=probs)[0]
             next_state = self.encoder.inverse_transform(next_state)
             states.append(next_state)
-            state = next_state
+            self.state = next_state
         if n == 1:
             return states[0]
         return states

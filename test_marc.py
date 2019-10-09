@@ -68,3 +68,21 @@ def test_markov_chain_with_size(throws):
     m = MarkovChain(throws)
     next_states = m.next("paper", n=2)
     assert len(next_states) == 2
+
+
+def test_markov_state_one_next(throws):
+    chain = MarkovChain(throws)
+    state = chain.next()
+    assert state == chain.state
+
+
+def test_markov_state_next_function(throws):
+    chain = MarkovChain(throws)
+    state = next(chain)
+    assert state == chain.state
+
+
+def test_markov_state_after_multiple(throws):
+    chain = MarkovChain(throws)
+    states = chain.next("rock", n=3)
+    assert states[-1] == chain.state
