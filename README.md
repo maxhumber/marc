@@ -17,7 +17,7 @@ marc (<I>**mar**kov **c**hain</I>) is a small, but flexible Markov chain generat
 
 #### Usage
 
-marc is easy to use. To instantiate a `MarkovChain` object pass the constructor a collection of items:
+marc is easy to use. To build a `MarkovChain` pass the object a sequence of items:
 
 ```python
 from marc import MarkovChain
@@ -32,7 +32,7 @@ sequence = [
 chain = MarkovChain(sequence)
 ```
 
-Use the `next` method to generate the next state from the chain:
+Use the `next` method to generate a next state:
 
 ```python
 chain.next('Rock')
@@ -59,15 +59,15 @@ next(chain)
 
 #### Example
 
-A fully worked example of marc in action (block of text provided by [quote](https://github.com/maxhumber/quote)):
+A fully worked example of marc in action (block text provided by [quote](https://github.com/maxhumber/quote)):
 
 ```python
 import random
 import re
-from quote import search # pip install quote
+from quote import quote
 from marc import MarkovChain
 
-quotes = search('shakespeare', 250)
+quotes = quote('shakespeare', 250)
 print(quotes[0])
 
 # {'author': 'William Shakespeare',
@@ -103,3 +103,4 @@ generate_sentences(chain)
 ```
 pip install -U marc
 ```
+

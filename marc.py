@@ -174,8 +174,3 @@ class ListEncoder:
         if not isinstance(y, list):
             return self.decoder.get(y)
         return [self.decoder.get(yi) for yi in y]
-
-
-# TODO:
-# fix next bug, and store the state
-# update readme to reflect changed variable names
