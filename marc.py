@@ -1,17 +1,17 @@
 import random
 
 class MarkovChain:
-    '''A simple Markov chain generator
+    '''Markov chain generator
 
     Attributes:
 
-    - current_state (str): The current state in the chain
-    - encoder (ListEncoder): The object that transforms the chain
-    - transition_matrix (list): The matrix that drives the chain
+    - state (str): The current state in the chain
+    - encoder (ListEncoder): The object that manages and transforms the sequence
+    - matrix (list): The transition matrix that drives the chain
 
     Methods:
 
-    - next: Generate the next state from the chain
+    - next: Generate the next state
 
     Examples:
 
@@ -29,15 +29,15 @@ class MarkovChain:
     # [2, 1, 3, 2, 1]
     ```
     '''
-    def __init__(self, chain):
+    def __init__(self, sequence):
         '''Params:
 
-        - chain (list): Collection to convert to a Markov chain
+        - sequence (list): Sequence to convert to a Markov chain
         '''
         self.encoder = ListEncoder()
-        encoded_chain = self.encoder.fit_transform(chain)
-        self.transition_matrix = self._chain_to_matrix(encoded_chain)
-        self.current_state = None
+        encoded_sequence = self.encoder.fit_transform(sequence)
+        self.matrix = self._sequence_to_matrix(encoded_sequence)
+        self.state = None
 
     def __repr__(self):
         return 'MarkovChain()'
@@ -46,15 +46,15 @@ class MarkovChain:
         return self
 
     def __next__(self):
-        self.current_state = self.next(self.current_state)
-        return self.current_state
+        self.state = self.next(self.state)
+        return self.state
 
-    def next(self, current_state=None, n=1):
-        '''Generate the next state from the chain
+    def next(self, state=None, n=1):
+        '''Generate the next state
 
         Params:
 
-        - current_state (str, optional): Seed state
+        - state (str, optional): The starting/seed state
         - n (int): Number of states to generate
 
         Examples:
@@ -70,26 +70,26 @@ class MarkovChain:
         # [2, 1, 3, 2, 1]
         ```
         '''
-        if not current_state:
+        if not state:
             possible = list(self.encoder.index_.keys())
-            current_state = random.choice(possible)
-        future_states = []
+            state = random.choice(possible)
+        states = []
         for _ in range(n):
-            encoded_state = self.encoder.transform(current_state)
-            probs = self.transition_matrix[encoded_state]
-            random_next = random.choices(range(len(probs)), weights=probs)[0]
-            random_next = self.encoder.inverse_transform(random_next)
-            future_states.append(random_next)
-            current_state = random_next
+            encoded_state = self.encoder.transform(state)
+            probs = self.matrix[encoded_state]
+            next_state = random.choices(range(len(probs)), weights=probs)[0]
+            next_state = self.encoder.inverse_transform(next_state)
+            states.append(next_state)
+            state = next_state
         if n == 1:
-            return future_states[0]
-        return future_states
+            return states[0]
+        return states
 
     @staticmethod
-    def _chain_to_matrix(chain):
-        unique = len(set(chain))
+    def _sequence_to_matrix(sequence):
+        unique = len(set(sequence))
         matrix = [[0] * unique for _ in range(unique)]
-        for (x, y) in zip(chain, chain[1:]):
+        for (x, y) in zip(sequence, sequence[1:]):
             matrix[x][y] += 1
         for row in matrix:
             rsum = sum(row)
