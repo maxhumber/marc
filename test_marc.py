@@ -20,23 +20,24 @@ def test_list_encoder_transform_one(sequence):
     le = ListEncoder()
     le.fit(sequence)
     t = le.transform("x")
-    assert t == 0
+    assert t in [1, 0]
 
 
 def test_list_encoder_transform_multiple(sequence):
     le = ListEncoder()
     le.fit(sequence)
-    x = le.transform('x')
-    o = le.transform('o')
+    x = le.transform("x")
+    o = le.transform("o")
     l = le.transform(["x", "x", "o"])
     assert l == [x, x, o]
 
 
 def test_chain_matrix(sequence):
     chain = MarkovChain(sequence)
-    x = chain.encoder.index_['x']
-    o = chain.encoder.index_['o']
+    x = chain.encoder.index_["x"]
+    o = chain.encoder.index_["o"]
     assert chain.matrix[x][o] == 0.2
+
 
 # TODO: throw a better error
 def test_chain_state_doesnt_exist(sequence):

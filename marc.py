@@ -78,7 +78,8 @@ class MarkovChain:
         if state:
             self.state = state
         else:
-            self.state = self._random_state()
+            possible = list(self.encoder.index_.keys())
+            self.state = random.choice(possible)
         if n == 1:
             self.state = self._generate_next(self.state)
             return self.state
@@ -88,10 +89,6 @@ class MarkovChain:
                 self.state = self._generate_next(self.state)
                 states.append(self.state)
             return states
-
-    def _random_state(self):
-        possible = list(self.encoder.index_.keys())
-        return random.choice(possible)
 
     def _generate_next(self, current_state):
         encoded_state = self.encoder.transform(current_state)

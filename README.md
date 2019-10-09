@@ -23,29 +23,58 @@ marc is easy to use. To build a `MarkovChain` pass the object a sequence of item
 from marc import MarkovChain
 
 sequence = [
-    'Rock', 'Rock', 'Paper', 'Rock', 'Scissors',
-    'Paper', 'Paper', 'Paper', 'Scissors', 'Rock',
-    'Scissors', 'Scissors', 'Paper', 'Rock', 'Rock',
-    'Rock', 'Rock', 'Paper', 'Rock', 'Rock'
+    'Rock', 'Rock', 'Rock', 'Paper', 'Rock', 'Scissors',
+    'Paper', 'Paper', 'Scissors', 'Rock', 'Scissors',
+    'Scissors', 'Paper', 'Scissors', 'Rock', 'Rock', 'Rock',
+    'Paper', 'Scissors', 'Scissors', 'Scissors', 'Rock'
 ]
 
 chain = MarkovChain(sequence)
 ```
 
-Use the `next` method to generate a next state:
+The learned transition matrix can be accessed through the `matrix` attribute:
+
+```python
+print(chain.matrix)
+# [[0.5, 0.25, 0.25], [0.2, 0.2, 0.6], [0.375, 0.25, 0.375]]
+```
+
+Though, the output is perhaps better viewed as a pandas `DataFrame`:
+
+```python
+import pandas as pd
+
+df = pd.DataFrame(
+    chain.matrix,
+    index=chain.encoder.index_,
+    columns=chain.encoder.index_
+)
+
+print(df)
+#            Rock  Paper  Scissors
+# Rock      0.500   0.25     0.250
+# Paper     0.200   0.20     0.600
+# Scissors  0.375   0.25     0.375
+```
+
+Use the `next` method to generate the next state (seeded or unseeded):
 
 ```python
 chain.next('Rock')
 # 'Rock'
 
-chain.next('Paper', n=5)
-# ['Scissors', 'Paper', 'Rock', 'Paper', 'Scissors']
-
 chain.next()
 # Paper
 ```
 
-Or, call the `next` function directly on top of the object:
+The `next` method can also generate multiple states with the `n` argument:
+
+```python
+chain.next('Paper', n=5)
+# ['Scissors', 'Paper', 'Rock', 'Paper', 'Scissors']
+```
+
+`MarkovChain` objects are iterable. This means that they can be passed directly to the  `next` function:
 
 ```python
 next(chain)
