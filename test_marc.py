@@ -2,87 +2,83 @@ import pytest
 
 from marc import ListEncoder, MarkovChain
 
-"""
-throws = [
-    'scissors', 'paper', 'paper', 'paper', 'paper', 'scissors', 'scissors',
-    'paper', 'rock', 'scissors', 'rock', 'rock', 'scissors', 'paper', 'rock',
-    'rock', 'paper', 'rock', 'scissors', 'scissors', 'paper', 'paper'
-]
-"""
-
 
 @pytest.fixture
-def throws():
-    return [
-        "scissors",
-        "paper",
-        "paper",
-        "paper",
-        "paper",
-        "scissors",
-        "scissors",
-        "paper",
-        "rock",
-        "scissors",
-        "rock",
-        "rock",
-        "scissors",
-        "paper",
-        "rock",
-        "rock",
-        "paper",
-        "rock",
-        "scissors",
-        "scissors",
-        "paper",
-        "paper",
-    ]
+def sequence():
+    sequence = [i for i in "xxxxxoxxxxxxoooxxxxo"]
+    return sequence
 
 
-def test_list_encoder(throws):
+def test_list_encoder(sequence):
     le = ListEncoder()
-    encoded = le.fit_transform(throws)
+    encoded = le.fit_transform(sequence)
     decoded = le.inverse_transform(encoded)
-    assert throws == decoded
+    assert sequence == decoded
 
 
-def test_markov_chain_state_doesnt_exist(throws):
-    m = MarkovChain(throws)
+def test_list_encoder_transform_one(sequence):
+    le = ListEncoder()
+    le.fit(sequence)
+    t = le.transform("x")
+    assert t == 0
+
+
+def test_list_encoder_transform_multiple(sequence):
+    le = ListEncoder()
+    le.fit(sequence)
+    x = le.transform('x')
+    o = le.transform('o')
+    l = le.transform(["x", "x", "o"])
+    assert l == [x, x, o]
+
+
+def test_chain_matrix(sequence):
+    chain = MarkovChain(sequence)
+    x = chain.encoder.index_['x']
+    o = chain.encoder.index_['o']
+    assert chain.matrix[x][o] == 0.2
+
+# TODO: throw a better error
+def test_chain_state_doesnt_exist(sequence):
+    chain = MarkovChain(sequence)
     with pytest.raises(TypeError):
-        m.next("✂️")
+        chain.next("y")
 
 
-def test_markov_chain_no_current_state(throws):
-    m = MarkovChain(throws)
-    next_state = m.next()
-    assert isinstance(next_state, str)
+def test_chain_state_new(sequence):
+    chain = MarkovChain(sequence)
+    assert not chain.state
 
 
-def test_markov_chain(throws):
-    m = MarkovChain(throws)
-    next_state = m.next("scissors")
-    assert next_state in ["rock", "paper", "scissors"]
-
-
-def test_markov_chain_with_size(throws):
-    m = MarkovChain(throws)
-    next_states = m.next("paper", n=2)
-    assert len(next_states) == 2
-
-
-def test_markov_state_one_next(throws):
-    chain = MarkovChain(throws)
-    state = chain.next()
-    assert state == chain.state
-
-
-def test_markov_state_next_function(throws):
-    chain = MarkovChain(throws)
+def test_chain_next_iteration(sequence):
+    chain = MarkovChain(sequence)
     state = next(chain)
     assert state == chain.state
 
 
-def test_markov_state_after_multiple(throws):
-    chain = MarkovChain(throws)
-    states = chain.next("rock", n=3)
+def test_chain_next_method_seeded(sequence):
+    chain = MarkovChain(sequence)
+    state = chain.next("x")
+    assert state in ["x", "o"]
+
+
+def test_chain_next_method_unseeded(sequence):
+    chain = MarkovChain(sequence)
+    state = chain.next()
+    assert state in ["x", "o"]
+
+
+def test_chain_next_multiple_unseeded(sequence):
+    chain = MarkovChain(sequence)
+    N = 10000
+    results = chain.next(n=N)
+    results = [0 if r == "x" else 1 for r in results]
+    result = sum(results) / N
+    print(result)
+    assert 0 < result < 0.35
+
+
+def test_chain_state_after_multiple(sequence):
+    chain = MarkovChain(sequence)
+    states = chain.next("x", n=3)
     assert states[-1] == chain.state

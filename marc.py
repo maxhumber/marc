@@ -47,6 +47,9 @@ class MarkovChain:
     def __iter__(self):
         return self
 
+    def __dir__(self):
+        return ["__next__", "state", "encoder", "matrix", "next"]
+
     def __next__(self):
         self.state = self.next(self.state)
         return self.state
@@ -72,21 +75,30 @@ class MarkovChain:
         # [2, 1, 3, 2, 1]
         ```
         """
-        if not state:
-            possible = list(self.encoder.index_.keys())
-            state = random.choice(possible)
-        self.state = state
-        states = []
-        for _ in range(n):
-            encoded_state = self.encoder.transform(self.state)
-            probs = self.matrix[encoded_state]
-            next_state = random.choices(range(len(probs)), weights=probs)[0]
-            next_state = self.encoder.inverse_transform(next_state)
-            states.append(next_state)
-            self.state = next_state
+        if state:
+            self.state = state
+        else:
+            self.state = self._random_state()
         if n == 1:
-            return states[0]
-        return states
+            self.state = self._generate_next(self.state)
+            return self.state
+        else:
+            states = []
+            for _ in range(n):
+                self.state = self._generate_next(self.state)
+                states.append(self.state)
+            return states
+
+    def _random_state(self):
+        possible = list(self.encoder.index_.keys())
+        return random.choice(possible)
+
+    def _generate_next(self, current_state):
+        encoded_state = self.encoder.transform(current_state)
+        probs = self.matrix[encoded_state]
+        next_state = random.choices(range(len(probs)), weights=probs)[0]
+        next_state = self.encoder.inverse_transform(next_state)
+        return next_state
 
     @staticmethod
     def _sequence_to_matrix(sequence):
