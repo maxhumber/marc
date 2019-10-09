@@ -1,19 +1,19 @@
 from setuptools import setup
-import os
 
-with open('README.md') as f:
+with open('README.md', 'r', encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
     name='marc',
     version='2.0',
-    description='Markov chains in pure python',
+    description='marc is a small, but flexible Markov chain generator',
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6'
     ],
     keywords=[
         'markov', 'markov chain', 'transition matrix', 'list encoder'

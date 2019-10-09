@@ -11,7 +11,7 @@
 
 ### About
 
-marc is a small, but flexible Markov chain generator. 
+marc (<I>**mar**kov **c**hain</I>) is a small, but flexible Markov chain generator.
 
 ### Usage
 
