@@ -9,7 +9,7 @@ class MarkovChain<Element: Hashable> {
         zip(sequence, sequence[1...]).forEach { update($0.0, $0.1) }
     }
     
-    subscript(element: Element, normalized: Bool = false) -> [(Element, Double)] {
+    subscript(element: Element, normalized: Bool = true) -> [(Element, Double)] {
         let options = store[element, default: [:]]
         if normalized {
             let total = options.values.reduce(0, +)
