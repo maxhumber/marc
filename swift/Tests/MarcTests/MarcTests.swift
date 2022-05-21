@@ -15,7 +15,7 @@ final class MarcTests: XCTestCase {
         chain.next("R")
         chain["R"]
     }
-    
+
     func testExample2() throws {
         let sequence = [
             "Rock", "Rock", "Rock", "Paper", "Rock", "Scissors",
@@ -23,7 +23,7 @@ final class MarcTests: XCTestCase {
             "Scissors", "Paper", "Scissors", "Rock", "Rock", "Rock",
             "Paper", "Scissors", "Scissors", "Scissors", "Rock"
         ]
-        
+
         let chain2 = MarkovChain(sequence)
 
         var outputs = [String]()
@@ -34,7 +34,7 @@ final class MarcTests: XCTestCase {
                 input = output
             }
         }
-        
+
         print(outputs)
     }
 }
