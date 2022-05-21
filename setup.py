@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name="marc",
-    version="3.0a0",
+    version="3.0-alpha",
     url="https://github.com/maxhumber/marc",
     description="marc is a small, but flexible Markov chain generator",
     long_description=long_description,
@@ -16,10 +16,10 @@ setup(
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python :: 3"
+        "Programming Language :: Python :: 3",
     ],
-    package_dir={'': 'python/src'},
-    packages=find_packages(where='src'),
+    package_dir={"": "python/src"},
+    packages=find_packages(where="src"),
     extras_require={
         "dev": [
             "black>=22.3.0",
@@ -27,5 +27,5 @@ setup(
         ],
     },
     python_requires=">=3.9",
-    setup_requires=["setuptools>=62.1.0"]
+    setup_requires=["setuptools>=62.1.0"],
 )
