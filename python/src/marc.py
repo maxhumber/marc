@@ -12,6 +12,7 @@ class MarkovChain:
 
     def __getitem__(self, element):
         options = sorted(self._store[element].items(), key=lambda i: -i[1])
+        total = sum(self._store[element].values())
         return {option: weight/total for (option, weight) in options}
 
     def update(self, a, b):

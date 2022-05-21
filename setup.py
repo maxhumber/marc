@@ -18,7 +18,7 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
     ],
-    package_dir={"": "python/src"},
+    package_dir={"marc": "python/src"},
     packages=find_packages(where="src"),
     extras_require={
         "dev": [
