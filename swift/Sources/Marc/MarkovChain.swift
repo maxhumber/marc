@@ -9,15 +9,12 @@ class MarkovChain<Element: Hashable> {
         zip(sequence, sequence[1...]).forEach { update($0.0, $0.1) }
     }
 
-    subscript(element: Element, normalized: Bool = true) -> [(Element, Double)] {
+    subscript(element: Element) -> [(Element, Double)] {
         let options = store[element, default: [:]]
-        if normalized {
-            let total = options.values.reduce(0, +)
-            return options
-                .sorted { $0.value > $1.value }
-                .map { ($0.key, Double($0.value) / Double(total)) }
-        }
-        return options.map { ($0.key, Double($0.value)) }
+        let total = options.values.reduce(0, +)
+        return options
+            .sorted { $0.value > $1.value }
+            .map { ($0.key, Double($0.value) / Double(total)) }
     }
 
     func update(_ a: Element, _ b: Element) {
