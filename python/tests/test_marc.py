@@ -1,11 +1,20 @@
 from marc import MarkovChain
 import pytest
 
+print("WTF pytest")
 
 @pytest.fixture
 def sequence():
-    sequence = [i for i in "xxxxxoxxxxxxoooxxxxo"]
+    player_throws = "RRRSRSRRPRPSPPRPSSSPRSPSPRRRPSSPRRPRSRPRPSSSPRPRPSSRPSRPRSSPRP"
+    sequence = [throw for throw in player_throws]
     return sequence
+
+
+def test_lookup(sequence):
+    chain = MarkovChain(sequence)
+    result = chain["R"]
+    print(result)
+
 
 
 def test_chain_next_method_seeded(sequence):

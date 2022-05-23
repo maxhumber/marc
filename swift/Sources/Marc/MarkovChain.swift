@@ -1,15 +1,18 @@
 import Foundation
 
-class MarkovChain<Element: Hashable> {
+public class MarkovChain<Element: Hashable> {
     private var store: [Element: [Element: UInt]] = [:]
+    
+    /// Bare initializer (use .update to seed chain)
+    public init() {}
 
-    init() {}
-
-    init(_ sequence: [Element]) {
+    /// Initialize chain with a sequence of generic elements
+    public init(_ sequence: [Element]) {
         zip(sequence, sequence[1...]).forEach { update($0.0, $0.1) }
     }
 
-    subscript(element: Element) -> [(Element, Double)] {
+    /// Fetch transition probabilities for a specific element/state
+    public subscript(element: Element) -> [(Element, Double)] {
         let options = store[element, default: [:]]
         let total = options.values.reduce(0, +)
         return options
@@ -17,11 +20,13 @@ class MarkovChain<Element: Hashable> {
             .map { ($0.key, Double($0.value) / Double(total)) }
     }
 
-    func update(_ a: Element, _ b: Element) {
+    /// Update chain with a new transition from a -> b
+    public func update(_ a: Element, _ b: Element) {
         store[a, default: [:]][b, default: 0] += 1
     }
 
-    func next(_ after: Element) -> Element? {
+    /// Fetch a generated next state from the chain
+    public func next(_ after: Element) -> Element? {
         let options = store[after, default: [:]]
         let total = options.values.reduce(0, +)
         let rand = UInt(arc4random_uniform(UInt32(total)))

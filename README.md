@@ -2,134 +2,94 @@
   <img src="https://raw.githubusercontent.com/maxhumber/marc/master/marc.png" width="500px" alt="marc">
 </h3>
 <p align="center">
-  <a href="https://github.com/maxhumber/marc/blob/master/setup.py"><img alt="Dependencies" src="https://img.shields.io/badge/dependencies-zero-brightgreen"></a>
   <a href="https://travis-ci.org/maxhumber/marc"><img alt="Travis" src="https://img.shields.io/travis/maxhumber/marc.svg"></a>
   <a href="https://pypi.python.org/pypi/marc"><img alt="PyPI" src="https://img.shields.io/pypi/v/marc.svg"></a>
-  <a href="https://pepy.tech/project/marc"><img alt="Downloads" src="https://pepy.tech/badge/marc"></a>
 </p>
 
 
-#### About
 
-marc (<I>**mar**kov **c**hain</I>) is a small, but flexible Markov chain generator.
+### About
+
+marc is a **Mar**kov **c**hain generator for Python and Swift
 
 
 
-#### Usage
+### Python
 
-marc is easy to use. To build a `MarkovChain` pass the object a sequence of items:
+Install:
+
+```sh
+pip install -U marc
+```
+
+
+
+Quickstart (⌘+C/⌘+V):
 
 ```python
 from marc import MarkovChain
 
-sequence = [
-    'Rock', 'Rock', 'Rock', 'Paper', 'Rock', 'Scissors',
-    'Paper', 'Paper', 'Scissors', 'Rock', 'Scissors',
-    'Scissors', 'Paper', 'Scissors', 'Rock', 'Rock', 'Rock',
-    'Paper', 'Scissors', 'Scissors', 'Scissors', 'Rock'
-]
+player_throws = "RRRSRSRRPRPSPPRPSSSPRSPSPRRRPSSPRRPRSRPRPSSSPRPRPSSRPSRPRSSPRP"
+sequence = [throw for throw in player_throws]
+# ['R', 'R', 'R', 'S', 'R', 'S', 'R', ...]
 
 chain = MarkovChain(sequence)
-```
+chain.update("R", "S")
 
-The learned transition matrix can be accessed through the `matrix` attribute:
+chain["R"]
+# {'P': 0.5, 'R': 0.25, 'S': 0.25}
 
-```python
-print(chain.matrix)
-# [[0.5, 0.25, 0.25], [0.2, 0.2, 0.6], [0.375, 0.25, 0.375]]
-```
+player_last_throw = "R"
+player_predicted_next_throw = chain.next(player_last_throw)
+# 'P'
 
-Though, the output is perhaps better viewed as a pandas `DataFrame`:
-
-```python
-import pandas as pd
-
-df = pd.DataFrame(
-    chain.matrix,
-    index=chain.encoder.index_,
-    columns=chain.encoder.index_
-)
-
-print(df)
-#            Rock  Paper  Scissors
-# Rock      0.500   0.25     0.250
-# Paper     0.200   0.20     0.600
-# Scissors  0.375   0.25     0.375
-```
-
-Use the `next` method to generate the next state (seeded or unseeded):
-
-```python
-chain.next('Rock')
-# 'Rock'
-
-chain.next()
-# Paper
-```
-
-The `next` method can also generate multiple states with the `n` argument:
-
-```python
-chain.next('Paper', n=5)
-# ['Scissors', 'Paper', 'Rock', 'Paper', 'Scissors']
-```
-
-`MarkovChain` objects are iterable. This means that they can be passed directly to the  `next` function:
-
-```python
-next(chain)
-# 'Scissors'
-
-next(chain)
-# Rock
+counters = {"R": "P", "P": "S", "S": "R"}
+counter_throw = counters[player_predicted_next_throw]
+# 'S'
 ```
 
 
 
-#### Example
-
-A fully worked example of marc in action (block text provided by [quote](https://github.com/maxhumber/quote)):
+Shakespearean Quickstart:
 
 ```python
 import random
 import re
-from quote import quote
 from marc import MarkovChain
 
-quotes = quote('shakespeare', 250)
-print(quotes[0])
-
-# {'author': 'William Shakespeare',
-#  'book': 'As You Like It',
-#  'quote': 'The fool doth think he is wise, but the wise man knows himself to be a fool.'}
-
-text = '\n'.join([q['quote'] for q in quotes])
-text = text.lower()
+text = ""
+with open("data/shakespeare.txt", "r") as f:
+    for line in f.readlines():
+        text += line
 
 tokens = re.findall(r"[\w']+|[.,!?;]", text)
-tokens[:5]
-
-# ['the', 'fool', 'doth', 'think', 'he']
 
 chain = MarkovChain(tokens)
 
-def generate_sentences(chain, n=2, length=(10, 20)):
-    for _ in range(n):
-        l = random.randint(length[0], length[1])
-        nonsense = ' '.join(chain.next(n=l))
-        print(nonsense)
+word = random.choice(tokens)
+# 'Who'
 
-generate_sentences(chain)
+chain[word]
+# {
+#     ',': 0.12915601023017903,
+#     'is': 0.08695652173913043,
+#     's': 0.05115089514066496,
+#     'hath': 0.02557544757033248,
+#     'was': 0.021739130434782608,
+#     'can': 0.020460358056265986,
+#     'shall': 0.01918158567774936,
+#     'would': 0.017902813299232736,
+#     ...
+# }
 
-# and unless by some are fascinated by the hour upon the wind faithful
-# those that hath had a very much as flaws go
+words = []
+for i in range(25):
+    words.append(word)
+    word = chain.next(word)
+
+sentence = re.sub(r'\s([?.!,;_"](?:\s|$))', r'\1', " ".join(words))
+# 'Who is not being sensible in men what shall I shall attend him; then. Fear you love our brother, or both friend'
 ```
 
 
-
-#### Install
-
-```
-pip install -U marc
-```
 
