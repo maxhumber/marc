@@ -21,8 +21,8 @@ public class MarkovChain<Element: Hashable> {
     /// ```
     /// let transitionProbabilities = chain["R"]
     /// ```
-    public subscript(element: Element) -> [(Element, Double)] {
-        let options = store[element, default: [:]]
+    public subscript(state: Element) -> [(Element, Double)] {
+        let options = store[state, default: [:]]
         let total = options.values.reduce(0, +)
         return options
             .sorted { $0.value > $1.value }
