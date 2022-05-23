@@ -1,5 +1,5 @@
 <h3 align="center">
-  <img src="https://raw.githubusercontent.com/maxhumber/marc/master/marc.png" width="500px" alt="marc">
+  <img alt="marc" src="images/logo.png" height="125px">
 </h3>
 <p align="center">
   <a href="https://travis-ci.org/maxhumber/marc"><img alt="Travis" src="https://img.shields.io/travis/maxhumber/marc.svg"></a>
@@ -10,7 +10,7 @@
 
 ### About
 
-marc is a **mar**kov **c**hain library for Python and Swift
+marc is a **mar**kov **c**hain python library and swift package
 
 
 
@@ -22,9 +22,11 @@ Install:
 pip install -U marc
 ```
 
+<sup>⚠️ marc 3.0+ is incompatible with marc 2.x</sup>
 
 
-Copy and paste this to get started:
+
+Quickstart:
 
 ```python
 from marc import MarkovChain
@@ -48,6 +50,8 @@ counter_throw = counters[player_predicted_next_throw]
 # 'S'
 ```
 
+For more inspiration see the [python/examples/](CHANGEME) directory
+
 
 
 ### Swift
@@ -56,7 +60,7 @@ SPM:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/maxhumber/marc.git", .upToNextMajor(from: "2.0"))
+    .package(url: "https://github.com/maxhumber/marc.git", .upToNextMajor(from: "3.0"))
 ]
 ```
 
@@ -78,7 +82,6 @@ print(chain["R"])
 
 let playerLastThrow = "R"
 let playerPredictedNextThrow = chain.next(playerLastThrow)! // << returns optional
-print(playerPredictedNextThrow)
 // "P"
 
 let counters = ["R": "P", "P": "S", "S": "R"]
@@ -86,6 +89,8 @@ let counterThrow = counters[playerPredictedNextThrow]! // << returns optional
 print(counterThrow)
 // "S"
 ```
+
+For more inspiration see the [swift/examples/](CHANGEME) directory
 
 
 
@@ -96,51 +101,84 @@ print(counterThrow)
 | **Initialize**                          | `chain = MarkovChain()`                | `chain = MarkovChain<String>()`            |
 | **Initialize** (with starting sequence) | `chain = MarkovChain(["R", "P", "S"])` | `let chain = MarkovChain(["R", "P", "S"])` |
 | **Update** chain                        | `chain.update("R", "P")`               | `chain.update("R", "P")`                   |
-| **Lookup** state                        | `chain["R"]`                           | `chain["R"]`                               |
+| **Lookup** possible transitions         | `chain["R"]`                           | `chain["R"]`                               |
 | Generate **next**                       | `chain.next("R")`                      | `chain.next("R")!`                         |
 
 
 
-### Shakespeare
+### Evolution
 
-Python:
+⚠️ **WIP**
 
-```python
-import random
-import re
-from marc import MarkovChain
+- Evolution can be summed up in a picture:
 
-text = ""
-with open("python/demo/shakespeare.txt", "r") as f:
-    for line in f.readlines():
-        text += line
+<img alt="meme" src="images/meme.png" width="500px">
 
-tokens = re.findall(r"[\w']+|[.,!?;]", text)
+- First written in python
 
-chain = MarkovChain(tokens)
+  - In the before times
 
-word = random.choice(tokens)
-# 'Who'
+- Used as a teaching tool for python packaging...
 
-chain[word]
-# {
-#     ',': 0.12915601023017903,
-#     'is': 0.08695652173913043,
-#     's': 0.05115089514066496,
-#     'hath': 0.02557544757033248,
-#     'was': 0.021739130434782608,
-#     'can': 0.020460358056265986,
-#     'shall': 0.01918158567774936,
-#     'would': 0.017902813299232736,
-#     ...
-# }
+- Actual code was heavily inspired by existing implementations...
 
-words = []
-for i in range(25):
-    words.append(word)
-    word = chain.next(word)
+  - Didn't actually stop and try to build my own from scratch.
+    - Linked to a limited understanding for how chains actually worked
+  - First versions were way too fancy
+    - See commit:  5ea21639aba16fcfe15c5de25049d024e0bb3332
+    - I was obsessed with reimplementing sklearn transformers, for some reason?
 
-sentence = re.sub(r'\s([?.!,;_"](?:\s|$))', r'\1', " ".join(words))
-# 'Who is not being sensible in men what shall I shall attend him; then. Fear you love our brother, or both friend'
-```
+- Since March 2020 I've been spending more and more time with Swift
 
+  - Less and less time in python...
+
+- Needed to implement a markov chain for a client project in Swift
+
+  - Knew I had marc (untouched since 2020)...
+    - Wanted to try to write from scratch
+      - Found it was way easier to just to dictionary lookup
+
+- After swift version implemented, went back and redid python
+
+  - Found a way simpler and more performant version
+
+- Wanted to make the APIs match as closely as possible
+
+  - (Especially at the call sight)
+    - But be as pythonic as possible with the python
+    - And as swifty as possible with the swift
+
+- Now serve as a Rosetta Stone
+
+  - Learning swift and writing production swift has made me a better python programmer
+    - (The reverse is also true!)
+
+- What I think about each
+
+  - Good Python:
+    - `Random.choice`
+    - Dictionary insertion is way faster? Surprising?? Need to figure out why?
+    - Ability to sort dictionaries
+    - Pytest `assert` is cleaner...
+  - Bad python:
+    - setup.py is just worse...
+    - Dev environment (vent) is a buzzkill
+    - Issues with jupyter/atom + pytest (still unresolved)
+
+  - Good swift:
+    - Packaging is way easier
+    - Dev environment is something you don't even have to think about
+    - Types! (I know python has 'em but they're really not the same at all...)
+    - Generics
+    - XCTest sitting right beside the code
+  - Bad swift: 
+    - Playgrounds are slow...
+    - Adding resources to playgrounds is harder
+    - No random? Had to roll my own (not bad, but a little surprising tbh)
+
+- How has swift made me a better developer?
+
+  - Less reliance on third party packages
+  - More intentional api design and exposure with `public`
+  - More testing, because it's actually integrated
+  - Functional programming 

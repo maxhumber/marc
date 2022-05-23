@@ -7,7 +7,7 @@ setup(
     name="marc",
     version="3.0-alpha",
     url="https://github.com/maxhumber/marc",
-    description="marc is a small, but flexible Markov chain generator",
+    description="marc is a markov chain library",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="Max Humber",
@@ -18,7 +18,7 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
     ],
-    package_dir={"marc": "python/src"},
+    package_dir={"": "python/src"},
     packages=find_packages(where="src"),
     extras_require={
         "dev": [
