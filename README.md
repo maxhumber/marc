@@ -10,7 +10,7 @@
 
 ### About
 
-marc is a **Mar**kov **c**hain generator for Python and Swift
+marc is a **mar**kov **c**hain library for Python and Swift
 
 
 
@@ -24,7 +24,7 @@ pip install -U marc
 
 
 
-Quickstart (⌘+C/⌘+V):
+Copy and paste this to get started:
 
 ```python
 from marc import MarkovChain
@@ -50,7 +50,60 @@ counter_throw = counters[player_predicted_next_throw]
 
 
 
-Shakespearean Quickstart:
+### Swift
+
+SPM:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/maxhumber/marc.git", .upToNextMajor(from: "2.0"))
+]
+```
+
+
+
+Quickstart:
+
+```swift
+import Marc
+
+let playerThrows = "RRRSRSRRPRPSPPRPSSSPRSPSPRRRPSSPRRPRSRPRPSSSPRPRPSSRPSRPRSSPRP"
+let sequence = playerThrows.map { String($0) }
+
+let chain = MarkovChain(sequence)
+chain.update("R", "S")
+
+print(chain["R"])
+// [("P", 0.5), ("R", 0.25), ("S", 0.25)]
+
+let playerLastThrow = "R"
+let playerPredictedNextThrow = chain.next(playerLastThrow)! // << returns optional
+print(playerPredictedNextThrow)
+// "P"
+
+let counters = ["R": "P", "P": "S", "S": "R"]
+let counterThrow = counters[playerPredictedNextThrow]! // << returns optional
+print(counterThrow)
+// "S"
+```
+
+
+
+### API/Comparison
+
+|                                         | Python                                 | Swift                                      |
+| --------------------------------------- | -------------------------------------- | ------------------------------------------ |
+| **Initialize**                          | `chain = MarkovChain()`                | `chain = MarkovChain<String>()`            |
+| **Initialize** (with starting sequence) | `chain = MarkovChain(["R", "P", "S"])` | `let chain = MarkovChain(["R", "P", "S"])` |
+| **Update** chain                        | `chain.update("R", "P")`               | `chain.update("R", "P")`                   |
+| **Lookup** state                        | `chain["R"]`                           | `chain["R"]`                               |
+| Generate **next**                       | `chain.next("R")`                      | `chain.next("R")!`                         |
+
+
+
+### Shakespeare
+
+Python:
 
 ```python
 import random
@@ -58,7 +111,7 @@ import re
 from marc import MarkovChain
 
 text = ""
-with open("data/shakespeare.txt", "r") as f:
+with open("python/demo/shakespeare.txt", "r") as f:
     for line in f.readlines():
         text += line
 
@@ -90,6 +143,4 @@ for i in range(25):
 sentence = re.sub(r'\s([?.!,;_"](?:\s|$))', r'\1', " ".join(words))
 # 'Who is not being sensible in men what shall I shall attend him; then. Fear you love our brother, or both friend'
 ```
-
-
 

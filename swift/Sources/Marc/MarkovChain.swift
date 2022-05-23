@@ -12,7 +12,17 @@ public class MarkovChain<Element: Hashable> {
     /// let chain = MarkovChain(["R", "P", "S"])
     /// ```
     public init(_ sequence: [Element]) {
-        zip(sequence, sequence[1...]).forEach { update($0.0, $0.1) }
+//        zip(sequence, sequence[1...]).map { update($0.0, $0.1) }
+//        zip(sequence, sequence[1...]).forEach { update($0.0, $0.1) }
+        let pairs = zip(sequence, sequence[1...])
+//        var count = 0
+        for (a, b) in pairs {
+            update(a, b)
+//            count += 1
+//            if count % 10 == 0 {
+//                print(count, a, "->", b)
+//            }
+        }
     }
 
     /// Fetch transition probabilities for state
@@ -36,7 +46,12 @@ public class MarkovChain<Element: Hashable> {
     /// chain.update("R", "B")
     /// ```
     public func update(_ a: Element, _ b: Element) {
+        // TODO: speed this up cause it slow AF
         store[a, default: [:]][b, default: 0] += 1
+//        var options = store[a] ?? [:]
+//        let value = options[b] ?? 0
+//        options[b] = value + 1
+//        store[a] = options
     }
 
     /// Generate next state from chain
