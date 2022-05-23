@@ -3,15 +3,24 @@ import Foundation
 public class MarkovChain<Element: Hashable> {
     private var store: [Element: [Element: UInt]] = [:]
     
-    /// Bare initializer (use .update to seed chain)
     public init() {}
 
-    /// Initialize chain with a sequence of generic elements
+    /// Initialize chain with starting sequence of generic elements
+    ///
+    /// - Example:
+    /// ```
+    /// let chain = MarkovChain(["R", "P", "S"])
+    /// ```
     public init(_ sequence: [Element]) {
         zip(sequence, sequence[1...]).forEach { update($0.0, $0.1) }
     }
 
-    /// Fetch transition probabilities for a specific element/state
+    /// Fetch transition probabilities for state
+    ///
+    /// - Example:
+    /// ```
+    /// let transitionProbabilities = chain["R"]
+    /// ```
     public subscript(element: Element) -> [(Element, Double)] {
         let options = store[element, default: [:]]
         let total = options.values.reduce(0, +)
@@ -20,12 +29,22 @@ public class MarkovChain<Element: Hashable> {
             .map { ($0.key, Double($0.value) / Double(total)) }
     }
 
-    /// Update chain with a new transition from a -> b
+    /// Update chain with transition a -> b
+    ///
+    /// - Example:
+    /// ```
+    /// chain.update("R", "B")
+    /// ```
     public func update(_ a: Element, _ b: Element) {
         store[a, default: [:]][b, default: 0] += 1
     }
 
-    /// Fetch a generated next state from the chain
+    /// Generate next state from chain
+    ///
+    /// - Example:
+    /// ```
+    /// let nextState = chain.next("R")
+    /// ```
     public func next(_ after: Element) -> Element? {
         let options = store[after, default: [:]]
         let total = options.values.reduce(0, +)

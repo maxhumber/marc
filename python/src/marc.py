@@ -4,7 +4,7 @@ import random
 
 class MarkovChain:
     def __init__(self, sequence=None):
-        """Instantiate chain with/without starting sequence
+        """Initialize chain with/without starting sequence
 
         Examples:
         ```
