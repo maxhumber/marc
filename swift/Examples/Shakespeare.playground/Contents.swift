@@ -22,7 +22,7 @@ for _ in 0..<25 {
     words.append(word)
     word = chain.next(word)!
 }
-    
+
 let sentence = words.joined(separator: " ")
 print(sentence)
-// Who in desolation Touching the old I am sunburnt and but some hedge corner of that I cry Amen Amen I am a man like
+// "Who in desolation Touching the old I am sunburnt and but some hedge corner of that I cry Amen Amen I am a man like"
