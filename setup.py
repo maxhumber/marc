@@ -18,7 +18,7 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
     ],
-    package_dir={"": "python/src"}, # perhaps offending...
+    package_dir={"": "python/src"},  # perhaps offending...
     packages=find_packages(where="src"),
     extras_require={
         "dev": [

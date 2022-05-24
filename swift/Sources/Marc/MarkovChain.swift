@@ -1,7 +1,9 @@
 import Foundation
 
 public class MarkovChain<Element: Hashable> {
-    private var store: [Element: [Element: UInt]] = [:]
+    private typealias Store = [Element: [Element: UInt]]
+    
+    private var store = Store()
     
     public init() {}
 
@@ -12,7 +14,9 @@ public class MarkovChain<Element: Hashable> {
     /// let chain = MarkovChain(["R", "P", "S"])
     /// ```
     public init(_ sequence: [Element]) {
-        zip(sequence, sequence[1...]).forEach { update($0.0, $0.1) }
+        store = zip(sequence, sequence[1...]).reduce(into: Store()) { result, pair in
+            result[pair.0, default: [:]][pair.1, default: 0] += 1
+        }
     }
 
     /// Fetch transition probabilities for state
@@ -36,7 +40,6 @@ public class MarkovChain<Element: Hashable> {
     /// chain.update("R", "B")
     /// ```
     public func update(_ a: Element, _ b: Element) {
-        // TODO: speed this up cause it slow AF
         store[a, default: [:]][b, default: 0] += 1
     }
 

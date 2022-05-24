@@ -31,7 +31,7 @@ final class MarcTests: XCTestCase {
     
     func testPerformanceExample() throws {
         var sequence = [Int]()
-        for _ in 0...1_000_000 {
+        for _ in 0...100_000 {
             let random = Int.random(in: 1...3)
             sequence.append(random)
         }
