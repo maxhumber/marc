@@ -30,30 +30,49 @@
 - Now serve as a Rosetta Stone
   - Learning swift and writing production swift has made me a better python programmer
     - (The reverse is also true!)
-- What I think about each
-  - Good Python:
-    - `Random.choice`
-    - Dictionary insertion is way faster? Surprising??
-      - COW stuff in swift
-    - Ability to sort dictionaries
-    - default dictionary
-    - dictionary comprehensions
-  - Bad python:
-    - setup.py is just worse...
-    - Dev environment (vent) is a buzzkill
-    - Issues with jupyter/atom + pytest (still unresolved)
-    - Folder structure issues, __init__.py
 
-  - Good swift:
-    - Packaging is way easier
-    - Dev environment is something you don't even have to think about
-    - Types! (I know python has 'em but they're really not the same at all...)
-    - Generics
-    - XCTest sitting right beside the code
-  - Bad swift: 
-    - Playgrounds are slow...
-    - Adding resources to playgrounds is harder
-    - No random? Had to roll my own (not bad, but a little surprising tbh)
+
+
+**Python**
+
+| Like 👍                              | Dislike 👎                                |
+| ----------------------------------- | ---------------------------------------- |
+| `defaultdict` !!                    | Clunky `setup.py` packaging              |
+| `random.choice` !                   | Setting up and working with environments |
+| Dictionary comprehensions + sorting | `__init__.py` and directory issues       |
+
+**Swift**
+
+| Like 👍                                            | Dislike 👎                                      |
+| ------------------------------------------------- | ---------------------------------------------- |
+| `Package.swift` and packaging in general          | Dictionary performance sucks... (surprising!!) |
+| Don't have to think about environments            | Need randomness? Too bad. Go roll it yourself  |
+| `XCTest` is nicer/easier than `unittest`/`pytest` | Playgrounds aren't as good as Hydrogen/Jupyter |
+
+
+
+- *Like* 👍
+  - `defaultdict` !!
+  - `random.choice` inclusion in the Standard Library
+  - Dictionary comprehensions + sorting
+- *Dislike* 👎 
+  - Clunky `setup.py` packaging
+  - Setting up and working with (virtual/development) environments
+  -  `__init__.py` and folder structure issues
+
+**Swift**
+
+- *Like* 👍
+  - `Package.swift` and packaging in general
+  - Natural development/environment isolation
+  - `XCTest` is nicer/easier to work with than `unittest`/`pytest`
+- *Dislike* 👎 
+  - Dictionary insertion performance sucks... (surprising !!)
+  - Need randomness? Too bad. Go roll it yourself
+  - The prototyping (Playgrounds) experience isn't as good as Hydrogen/Jupyter
+
+
+
 - How has swift made me a better developer?
   - Less reliance on third party packages
   - More intentional api design and exposure with `public`

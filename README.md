@@ -94,14 +94,14 @@ For more inspiration see the [swift/examples/](swift/examples/) directory
 
 ### API/Comparison
 
-|                                  | Python                                 | Swift                                      |
-| -------------------------------- | -------------------------------------- | ------------------------------------------ |
-| Import                           | `from marc import MarkovChain`         | `import Marc`                              |
-| Initialize chain                 | `chain = MarkovChain()`                | `chain = MarkovChain<String>()`            |
-| Initialize chain (with sequence) | `chain = MarkovChain(["R", "P", "S"])` | `let chain = MarkovChain(["R", "P", "S"])` |
-| Update chain                     | `chain.update("R", "P")`               | `chain.update("R", "P")`                   |
-| Lookup transitions               | `chain["R"]`                           | `chain["R"]`                               |
-| Generate next                    | `chain.next("R")`                      | `chain.next("R")!`                         |
+|                         | Python                                 | Swift                                      |
+| ----------------------- | -------------------------------------- | ------------------------------------------ |
+| Import                  | `from marc import MarkovChain`         | `import Marc`                              |
+| Initialize <sub>A</sub> | `chain = MarkovChain()`                | `chain = MarkovChain<String>()`            |
+| Initialize <sub>B</sub> | `chain = MarkovChain(["R", "P", "S"])` | `let chain = MarkovChain(["R", "P", "S"])` |
+| Update chain            | `chain.update("R", "P")`               | `chain.update("R", "P")`                   |
+| Lookup transitions      | `chain["R"]`                           | `chain["R"]`                               |
+| Generate next           | `chain.next("R")`                      | `chain.next("R")!`                         |
 
 
 
