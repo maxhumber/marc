@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name="marc",
-    version="3.0.1",
+    version="3.0.2",
     url="https://github.com/maxhumber/marc",
     description="Markov chain generator",
     long_description=long_description,
@@ -18,8 +18,8 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
     ],
+    packages=[""],
     package_dir={"": "python/src"},
-    packages=find_packages(where="src"),
     extras_require={
         "dev": [
             "black>=22.3.0",
