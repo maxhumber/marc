@@ -1,5 +1,8 @@
 # custom
+.swiftpm
 playground.py
+.vscode
+.build
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

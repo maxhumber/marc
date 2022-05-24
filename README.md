@@ -1,135 +1,165 @@
 <h3 align="center">
-  <img src="https://raw.githubusercontent.com/maxhumber/marc/master/marc.png" width="500px" alt="marc">
+  <img alt="marc" src="images/logo.png" height="125px">
 </h3>
 <p align="center">
-  <a href="https://github.com/maxhumber/marc/blob/master/setup.py"><img alt="Dependencies" src="https://img.shields.io/badge/dependencies-zero-brightgreen"></a>
   <a href="https://travis-ci.org/maxhumber/marc"><img alt="Travis" src="https://img.shields.io/travis/maxhumber/marc.svg"></a>
   <a href="https://pypi.python.org/pypi/marc"><img alt="PyPI" src="https://img.shields.io/pypi/v/marc.svg"></a>
-  <a href="https://pepy.tech/project/marc"><img alt="Downloads" src="https://pepy.tech/badge/marc"></a>
 </p>
 
 
-#### About
 
-marc (<I>**mar**kov **c**hain</I>) is a small, but flexible Markov chain generator.
+### About
 
-
-
-#### Usage
-
-marc is easy to use. To build a `MarkovChain` pass the object a sequence of items:
-
-```python
-from marc import MarkovChain
-
-sequence = [
-    'Rock', 'Rock', 'Rock', 'Paper', 'Rock', 'Scissors',
-    'Paper', 'Paper', 'Scissors', 'Rock', 'Scissors',
-    'Scissors', 'Paper', 'Scissors', 'Rock', 'Rock', 'Rock',
-    'Paper', 'Scissors', 'Scissors', 'Scissors', 'Rock'
-]
-
-chain = MarkovChain(sequence)
-```
-
-The learned transition matrix can be accessed through the `matrix` attribute:
-
-```python
-print(chain.matrix)
-# [[0.5, 0.25, 0.25], [0.2, 0.2, 0.6], [0.375, 0.25, 0.375]]
-```
-
-Though, the output is perhaps better viewed as a pandas `DataFrame`:
-
-```python
-import pandas as pd
-
-df = pd.DataFrame(
-    chain.matrix,
-    index=chain.encoder.index_,
-    columns=chain.encoder.index_
-)
-
-print(df)
-#            Rock  Paper  Scissors
-# Rock      0.500   0.25     0.250
-# Paper     0.200   0.20     0.600
-# Scissors  0.375   0.25     0.375
-```
-
-Use the `next` method to generate the next state (seeded or unseeded):
-
-```python
-chain.next('Rock')
-# 'Rock'
-
-chain.next()
-# Paper
-```
-
-The `next` method can also generate multiple states with the `n` argument:
-
-```python
-chain.next('Paper', n=5)
-# ['Scissors', 'Paper', 'Rock', 'Paper', 'Scissors']
-```
-
-`MarkovChain` objects are iterable. This means that they can be passed directly to the  `next` function:
-
-```python
-next(chain)
-# 'Scissors'
-
-next(chain)
-# Rock
-```
+marc is a **mar**kov **c**hain python library and swift package
 
 
 
-#### Example
+### Python
 
-A fully worked example of marc in action (block text provided by [quote](https://github.com/maxhumber/quote)):
+Install:
 
-```python
-import random
-import re
-from quote import quote
-from marc import MarkovChain
-
-quotes = quote('shakespeare', 250)
-print(quotes[0])
-
-# {'author': 'William Shakespeare',
-#  'book': 'As You Like It',
-#  'quote': 'The fool doth think he is wise, but the wise man knows himself to be a fool.'}
-
-text = '\n'.join([q['quote'] for q in quotes])
-text = text.lower()
-
-tokens = re.findall(r"[\w']+|[.,!?;]", text)
-tokens[:5]
-
-# ['the', 'fool', 'doth', 'think', 'he']
-
-chain = MarkovChain(tokens)
-
-def generate_sentences(chain, n=2, length=(10, 20)):
-    for _ in range(n):
-        l = random.randint(length[0], length[1])
-        nonsense = ' '.join(chain.next(n=l))
-        print(nonsense)
-
-generate_sentences(chain)
-
-# and unless by some are fascinated by the hour upon the wind faithful
-# those that hath had a very much as flaws go
-```
-
-
-
-#### Install
-
-```
+```sh
 pip install -U marc
 ```
 
+<sup>⚠️ marc 3.0+ is incompatible with marc 2.x</sup>
+
+
+
+Quickstart:
+
+```python
+from marc import MarkovChain
+
+player_throws = "RRRSRSRRPRPSPPRPSSSPRSPSPRRRPSSPRRPRSRPRPSSSPRPRPSSRPSRPRSSPRP"
+sequence = [throw for throw in player_throws]
+# ['R', 'R', 'R', 'S', 'R', 'S', 'R', ...]
+
+chain = MarkovChain(sequence)
+chain.update("R", "S")
+
+chain["R"]
+# {'P': 0.5, 'R': 0.25, 'S': 0.25}
+
+player_last_throw = "R"
+player_predicted_next_throw = chain.next(player_last_throw)
+# 'P'
+
+counters = {"R": "P", "P": "S", "S": "R"}
+counter_throw = counters[player_predicted_next_throw]
+# 'S'
+```
+
+For more inspiration see the [python/examples/](CHANGEME) directory
+
+
+
+### Swift
+
+SPM:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/maxhumber/marc.git", .upToNextMajor(from: "3.0"))
+]
+```
+
+
+
+Quickstart:
+
+```swift
+import Marc
+
+let playerThrows = "RRRSRSRRPRPSPPRPSSSPRSPSPRRRPSSPRRPRSRPRPSSSPRPRPSSRPSRPRSSPRP"
+let sequence = playerThrows.map { String($0) }
+
+let chain = MarkovChain(sequence)
+chain.update("R", "S")
+
+print(chain["R"])
+// [("P", 0.5), ("R", 0.25), ("S", 0.25)]
+
+let playerLastThrow = "R"
+let playerPredictedNextThrow = chain.next(playerLastThrow)! // << returns optional
+// "P"
+
+let counters = ["R": "P", "P": "S", "S": "R"]
+let counterThrow = counters[playerPredictedNextThrow]! // << returns optional
+print(counterThrow)
+// "S"
+```
+
+For more inspiration see the [swift/examples/](CHANGEME) directory
+
+
+
+### API/Comparison
+
+|                                         | Python                                 | Swift                                      |
+| --------------------------------------- | -------------------------------------- | ------------------------------------------ |
+| **Initialize**                          | `chain = MarkovChain()`                | `chain = MarkovChain<String>()`            |
+| **Initialize** (with starting sequence) | `chain = MarkovChain(["R", "P", "S"])` | `let chain = MarkovChain(["R", "P", "S"])` |
+| **Update** chain                        | `chain.update("R", "P")`               | `chain.update("R", "P")`                   |
+| **Lookup** possible transitions         | `chain["R"]`                           | `chain["R"]`                               |
+| Generate **next**                       | `chain.next("R")`                      | `chain.next("R")!`                         |
+
+
+
+### Evolution
+
+⚠️ **WIP**
+
+- Evolution can be summed up in a picture:
+
+<img alt="meme" src="images/meme.png" width="500px">
+
+- First written in python
+  - In the before times
+- Used as a teaching tool for python packaging...
+- Actual code was heavily inspired by existing implementations...
+  - Didn't actually stop and try to build my own from scratch.
+    - Linked to a limited understanding for how chains actually worked
+  - First versions were way too fancy
+    - See commit:  5ea21639aba16fcfe15c5de25049d024e0bb3332
+    - I was obsessed with reimplementing sklearn transformers, for some reason?
+- Since March 2020 I've been spending more and more time with Swift
+  - Less and less time in python...
+- Needed to implement a markov chain for a client project in Swift
+  - Knew I had marc (untouched since 2020)...
+    - Wanted to try to write from scratch
+      - Found it was way easier to just to dictionary lookup
+- After swift version implemented, went back and redid python
+  - Found a way simpler and more performant version
+- Wanted to make the APIs match as closely as possible
+  - (Especially at the call sight)
+    - But be as pythonic as possible with the python
+    - And as swifty as possible with the swift
+- Now serve as a Rosetta Stone
+  - Learning swift and writing production swift has made me a better python programmer
+    - (The reverse is also true!)
+- What I think about each
+  - Good Python:
+    - `Random.choice`
+    - Dictionary insertion is way faster? Surprising?? Need to figure out why?
+    - Ability to sort dictionaries
+    - Pytest `assert` is cleaner...
+  - Bad python:
+    - setup.py is just worse...
+    - Dev environment (vent) is a buzzkill
+    - Issues with jupyter/atom + pytest (still unresolved)
+  - Good swift:
+    - Packaging is way easier
+    - Dev environment is something you don't even have to think about
+    - Types! (I know python has 'em but they're really not the same at all...)
+    - Generics
+    - XCTest sitting right beside the code
+  - Bad swift: 
+    - Playgrounds are slow...
+    - Adding resources to playgrounds is harder
+    - No random? Had to roll my own (not bad, but a little surprising tbh)
+- How has swift made me a better developer?
+  - Less reliance on third party packages
+  - More intentional api design and exposure with `public`
+  - More testing, because it's actually integrated
+  - Functional programming 
