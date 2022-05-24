@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name="marc",
-    version="3.0",
+    version="3.0.1",
     url="https://github.com/maxhumber/marc",
     description="Markov chain generator",
     long_description=long_description,
