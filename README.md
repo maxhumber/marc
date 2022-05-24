@@ -1,8 +1,9 @@
-<h3 align="center">
+<div align="center">
   <img alt="marc" src="images/logo.png" height="125px">
-</h3>
+</div>
 <div align="center">
 </div>
+
 
 
 ### About
@@ -101,13 +102,17 @@ I built the first versions of *marc* in the Fall of 2019. Back then I created, a
 
 Recently, I had an iOS project come up that needed some Markov chains. After surveying GitHub and not finding any implementations that I liked (forgetting that I had already rolled my own in Python) I started from scratch on a new implementation in Swift. 
 
-Just as I was finishing the Swift package I re-discovered *marc*... I had a good laugh looking back through [the original Python library](https://github.com/maxhumber/marc/tree/5ea21639aba16fcfe15c5de25049d024e0bb3332). My feelings about the code I wrote and my abilities in 2019 can be summarized in a picture:
+Just as I was finishing the Swift package I re-discovered *marc*... I had a good laugh looking back through the [original](https://github.com/maxhumber/marc/tree/5ea21639aba16fcfe15c5de25049d024e0bb3332) Python library. My feelings about the code I wrote and my abilities in 2019 can be summarized in a picture:
 
-<img alt="meme" src="images/meme.png" width="500px">
+<div align="center">
+	<img alt="meme" src="images/meme.png" width="500px">
+</div>
 
-Unable to resist a good procrast-a-code™ project, I cross-ported the finished Swift package (that I actually needed) to Python and polished up both codebases and documentation into this mono repo. 
 
-Honestly, I had a lot of fun trying to mirror the APIs as closely as possible while doing my best to keep the Python code "Pythonic" and the Swift code "Schwifty". The whole project and exercise was incredibly rewarding, interesting, insightful. What I liked and disliked about both languages can be summarized in these tables:
+
+Unable to resist a good procrast-a-code™ project, I cross-ported the finished Swift package to Python and polished up both codebases and documentation into this mono repo. 
+
+Honestly, I had a lot of fun trying to mirror the APIs as closely as possible while doing my best to keep the Python code "Pythonic" and the Swift code "Schwifty". The whole project and exercise was incredibly rewarding, interesting, insightful. Crudely, here's how found working on both codebases:
 
 **Python**
 
@@ -125,7 +130,7 @@ Honestly, I had a lot of fun trying to mirror the APIs as closely as possible wh
 | Don't have to think about environments            | Need randomness? Too bad. Go roll it yourself  |
 | `XCTest` is nicer/easier than `unittest`/`pytest` | Playgrounds aren't as good as Hydrogen/Jupyter |
 
-So why? For fun! And procrastination. And, more seriously, because I needed some chains in Swift. And then because I thought it could be interesting to create a Rosetta Stone for packaging and testing in Python and Swift!
+So why? For fun! And procrastination. And, more seriously, because I needed some chains in Swift. And then, because I thought it could be interesting to create a Rosetta Stone for Python and Swift... So if you, Dear Reader, are looking to use Markov chains in your Python or Swift project, or are looking to jump to or from either language, I hope you find this useful.
 
 
 ### Warning
