@@ -1,12 +1,6 @@
 <h3 align="center">
   <img alt="marc" src="images/logo.png" height="125px">
 </h3>
-<p align="center">
-  <a href="https://pypi.python.org/pypi/marc"><img alt="PyPI" src="https://img.shields.io/pypi/v/marc.svg"></a>
-</p>
-
-
-
 
 ### About
 
@@ -87,7 +81,7 @@ print(counterThrow)
 // "S"
 ```
 
-For more inspiration see the [swift/examples/](https://github.com/maxhumber/marc/tree/master/swift/Examples) directory
+For more inspiration see the [swift/examples/](swift/examples/) directory
 
 
 
@@ -95,6 +89,7 @@ For more inspiration see the [swift/examples/](https://github.com/maxhumber/marc
 
 |                                  | Python                                 | Swift                                      |
 | -------------------------------- | -------------------------------------- | ------------------------------------------ |
+| Import                           | `from marc import MarkovChain`         | `import Marc`                              |
 | Initialize chain                 | `chain = MarkovChain()`                | `chain = MarkovChain<String>()`            |
 | Initialize chain (with sequence) | `chain = MarkovChain(["R", "P", "S"])` | `let chain = MarkovChain(["R", "P", "S"])` |
 | Update chain                     | `chain.update("R", "P")`               | `chain.update("R", "P")`                   |

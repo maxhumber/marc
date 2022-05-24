@@ -1,6 +1,5 @@
 ### TODO
 
 - Finish evolution story...
-- TestCase python
-- Cut release (3.0)
-- Promote
+- Python: switch to unittest
+- Cut release (3.0) + promote
