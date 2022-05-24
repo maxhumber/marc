@@ -5,14 +5,9 @@
 </div>
 
 
-
-
-
-
 ### About
 
 marc is a **Mar**kov **c**hain generator for Python and/or Swift
-
 
 
 ### Python
@@ -22,7 +17,6 @@ Install<sup>‡</sup>
 ```sh
 pip install marc
 ```
-
 
 
 Quickstart:
@@ -52,7 +46,6 @@ counter_throw = counters[player_predicted_next_throw]
 For more inspiration see the [python/examples/](python/examples/) directory
 
 
-
 ### Swift
 
 SPM:
@@ -62,7 +55,6 @@ dependencies: [
     .package(url: "https://github.com/maxhumber/marc.git", .upToNextMajor(from: "3.0"))
 ]
 ```
-
 
 
 Quickstart:
@@ -88,8 +80,7 @@ print(counterThrow)
 // "S"
 ```
 
-For more inspiration see the [swift/examples/](swift/examples/) directory
-
+For more inspiration see the [swift/Examples/](swift/Examples/) directory
 
 
 ### API/Comparison
@@ -102,7 +93,6 @@ For more inspiration see the [swift/examples/](swift/examples/) directory
 | Update chain            | `chain.update("R", "P")`               | `chain.update("R", "P")`                   |
 | Lookup transitions      | `chain["R"]`                           | `chain["R"]`                               |
 | Generate next           | `chain.next("R")`                      | `chain.next("R")!`                         |
-
 
 
 ### Why
@@ -136,7 +126,6 @@ Honestly, I had a lot of fun trying to mirror the APIs as closely as possible wh
 | `XCTest` is nicer/easier than `unittest`/`pytest` | Playgrounds aren't as good as Hydrogen/Jupyter |
 
 So why? For fun! And procrastination. And, more seriously, because I needed some chains in Swift. And then because I thought it could be interesting to create a Rosetta Stone for packaging and testing in Python and Swift!
-
 
 
 ### Warning
