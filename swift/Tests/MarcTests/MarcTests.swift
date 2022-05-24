@@ -28,15 +28,4 @@ final class MarcTests: XCTestCase {
         let contains = ["R", "P", "S"].contains(next)
         XCTAssertTrue(contains)
     }
-    
-    func testPerformanceExample() throws {
-        var sequence = [Int]()
-        for _ in 0...100_000 {
-            let random = Int.random(in: 1...3)
-            sequence.append(random)
-        }
-        self.measure {
-            let chain = MarkovChain(sequence)
-        }
-    }
 }
