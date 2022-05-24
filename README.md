@@ -11,7 +11,7 @@
 
 ### About
 
-marc is a **mar**kov **c**hain generator for python and/or swift
+marc is a **Mar**kov **c**hain generator for Python and/or Swift
 
 
 
@@ -105,6 +105,40 @@ For more inspiration see the [swift/examples/](swift/examples/) directory
 
 
 
-### Fineprint
+### Why
+
+I built the first versions of *marc* in the Fall of 2019. Back then I created, and used, it as a teaching tool (for how to build and upload a PyPI package). Since March 2020 I've been spending less and less time with Python and more and more time with Swift... and so, just kind of forgot about *marc*.
+
+Recently, I had an iOS project come up that needed some Markov chains. After surveying GitHub and not finding any implementations that I liked (forgetting that I had already rolled my own in Python) I started from scratch on a new implementation in Swift. 
+
+Just as I was finishing the Swift package I re-discovered *marc*... I had a good laugh looking back through [the original Python library](https://github.com/maxhumber/marc/tree/5ea21639aba16fcfe15c5de25049d024e0bb3332). My feelings about the code I wrote and my abilities in 2019 can be summarized in a picture:
+
+<img alt="meme" src="images/meme.png" width="500px">
+
+Unable to resist a good procrast-a-code™ project, I cross-ported the finished Swift package (that I actually needed) to Python and polished up both codebases and documentation into this mono repo. 
+
+Honestly, I had a lot of fun trying to mirror the APIs as closely as possible while doing my best to keep the Python code "Pythonic" and the Swift code "Schwifty". The whole project and exercise was incredibly rewarding, interesting, insightful. What I liked and disliked about both languages can be summarized in these tables:
+
+**Python**
+
+| Like                                | Dislike                                  |
+| ----------------------------------- | ---------------------------------------- |
+| `defaultdict` !!                    | Clunky `setup.py` packaging              |
+| `random.choice` !                   | Setting up and working with environments |
+| Dictionary comprehensions + sorting | `__init__.py` and directory issues       |
+
+**Swift**
+
+| Like                                              | Dislike                                        |
+| ------------------------------------------------- | ---------------------------------------------- |
+| `Package.swift` and packaging in general          | Dictionary performance sucks... (surprising!!) |
+| Don't have to think about environments            | Need randomness? Too bad. Go roll it yourself  |
+| `XCTest` is nicer/easier than `unittest`/`pytest` | Playgrounds aren't as good as Hydrogen/Jupyter |
+
+So why? For fun! And procrastination. And, more seriously, because I needed some chains in Swift. And then because I thought it could be interesting to create a Rosetta Stone for packaging and testing in Python and Swift!
+
+
+
+### Warning
 
 <sup>‡</sup> marc 3.0+ is incompatible with marc 2.x
