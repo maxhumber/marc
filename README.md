@@ -112,7 +112,7 @@ Just as I was finishing the Swift package I re-discovered *marc*... I had a good
 
 Unable to resist a good procrasticode™ project, I cross-ported the finished Swift package to Python and polished up both codebases and documentation into this mono repo. 
 
-Honestly, I had a lot of fun trying to mirror the APIs as closely as possible while doing my best to keep the Python code "Pythonic" and the Swift code "Schwifty". The whole project and exercise was incredibly rewarding, interesting, insightful. Crudely, here's how found working on both codebases:
+Honestly, I had a lot of fun trying to mirror the APIs as closely as possible while doing my best to keep the Python code "Pythonic" and the Swift code "Schwifty". The whole project and exercise was incredibly rewarding, interesting, and insightful. Crudely, here's how found working on both codebases:
 
 **Python**
 
