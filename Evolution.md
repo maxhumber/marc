@@ -33,13 +33,17 @@
 - What I think about each
   - Good Python:
     - `Random.choice`
-    - Dictionary insertion is way faster? Surprising?? Need to figure out why?
+    - Dictionary insertion is way faster? Surprising??
+      - COW stuff in swift
     - Ability to sort dictionaries
-    - Pytest `assert` is cleaner...
+    - default dictionary
+    - dictionary comprehensions
   - Bad python:
     - setup.py is just worse...
     - Dev environment (vent) is a buzzkill
     - Issues with jupyter/atom + pytest (still unresolved)
+    - Folder structure issues, __init__.py
+
   - Good swift:
     - Packaging is way easier
     - Dev environment is something you don't even have to think about

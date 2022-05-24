@@ -1,10 +1,17 @@
 <h3 align="center">
   <img alt="marc" src="images/logo.png" height="125px">
 </h3>
+<div align="center">
+</div>
+
+
+
+
+
 
 ### About
 
-marc is a **mar**kov **c**hain python library and swift package
+marc is a **mar**kov **c**hain generator for python and/or swift
 
 
 

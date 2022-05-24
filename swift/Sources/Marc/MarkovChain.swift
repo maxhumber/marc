@@ -7,21 +7,22 @@ public class MarkovChain<Element: Hashable> {
     
     public init() {}
 
-    /// Initialize chain with starting sequence of generic elements
+    /// Initialize chain with sequence of elements
     ///
-    /// - Example:
+    /// Example:
     /// ```
     /// let chain = MarkovChain(["R", "P", "S"])
     /// ```
     public init(_ sequence: [Element]) {
+        // reducing per: https://developer.apple.com/documentation/swift/dictionary/3127177-reduce
         store = zip(sequence, sequence[1...]).reduce(into: Store()) { result, pair in
             result[pair.0, default: [:]][pair.1, default: 0] += 1
         }
     }
 
-    /// Fetch transition probabilities for state
+    /// Lookup transition probabilities for state
     ///
-    /// - Example:
+    /// Example:
     /// ```
     /// let transitionProbabilities = chain["R"]
     /// ```
@@ -35,7 +36,11 @@ public class MarkovChain<Element: Hashable> {
 
     /// Update chain with transition a -> b
     ///
-    /// - Example:
+    /// - Parameters:
+    ///   - a: Transition from state
+    ///   - b: Transition to state
+    ///
+    /// Example:
     /// ```
     /// chain.update("R", "B")
     /// ```
@@ -45,7 +50,10 @@ public class MarkovChain<Element: Hashable> {
 
     /// Generate next state from chain
     ///
-    /// - Example:
+    /// - Parameters:
+    ///   - after: Generate following state
+    ///
+    /// Example:
     /// ```
     /// let nextState = chain.next("R")
     /// ```

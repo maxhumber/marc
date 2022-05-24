@@ -19,7 +19,7 @@ class MarkovChain:
             self.update(a, b)
 
     def __getitem__(self, state):
-        """Fetch transition probabilities for state
+        """Lookup transition probabilities for state
 
         Example:
         ```

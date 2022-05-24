@@ -1,26 +1,27 @@
+from unittest import TestCase
 from marc import MarkovChain
-import pytest
 
 
-@pytest.fixture
-def chain():
-    player_throws = "RRRSRSRRPRPSPPRPSSSPRSPSPRRRPSSPRRPRSRPRPSSSPRPRPSSRPSRPRSSPRP"
-    sequence = [throw for throw in player_throws]
-    return MarkovChain(sequence)
+class TestMarc(TestCase):
+    def setUp(self):
+        player_throws = "RRRSRSRRPRPSPPRPSSSPRSPSPRRRPSSPRRPRSRPRPSSSPRPRPSSRPSRPRSSPRP"
+        sequence = [throw for throw in player_throws]
+        self.chain = MarkovChain(sequence)
+
+    def test_lookup(self):
+        result = self.chain["R"]["P"]
+        self.assertAlmostEqual(result, 0.5217391304347826)
+
+    def test_update(self):
+        self.chain.update("R", "S")
+        probs = self.chain["R"]
+        rock = probs["R"]
+        self.assertEqual(rock, 0.25)
+
+    def test_next(self):
+        next_state = self.chain.next("R")
+        self.assertTrue(next_state in ["R", "P", "S"])
 
 
-def test_lookup(chain):
-    result = chain["R"]["P"]
-    assert result == 0.5217391304347826
-
-
-def test_update(chain):
-    chain.update("R", "S")
-    probs = chain["R"]
-    rock = probs["R"]
-    assert rock == 0.25
-
-
-def test_next(chain):
-    next = chain.next("R")
-    assert next in ["R", "P", "S"]
+if __name__ == "__main__":
+    unittest.main()
