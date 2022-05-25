@@ -50,7 +50,7 @@ SPM:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/maxhumber/marc.git", .upToNextMajor(from: "3.0"))
+    .package(url: "https://github.com/maxhumber/marc.git", .upToNextMajor(from: "22.5.0"))
 ]
 ```
 
