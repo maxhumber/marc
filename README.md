@@ -1,9 +1,6 @@
 <div align="center">
   <img alt="marc" src="images/logo.png" height="125px">
 </div>
-<div align="center">
-</div>
-
 
 
 ### About
@@ -105,14 +102,13 @@ Recently, I had an iOS project come up that needed some Markov chains. After sur
 Just as I was finishing the Swift package I re-discovered *marc*... I had a good laugh looking back through the [original](https://github.com/maxhumber/marc/tree/5ea21639aba16fcfe15c5de25049d024e0bb3332) Python library. My feelings about the code I wrote and my abilities in 2019 can be summarized in a picture:
 
 <div align="center">
-	<img alt="meme" src="images/meme.png" width="500px">
+   <img alt="meme" src="images/meme.png" width="500px">
 </div>
-
 
 
 Unable to resist a good procrasticode™ project, I cross-ported the finished Swift package to Python and polished up both codebases and documentation into this mono repo. 
 
-Honestly, I had a lot of fun trying to mirror the APIs as closely as possible while doing my best to keep the Python code "Pythonic" and the Swift code "Schwifty". The whole project and exercise was incredibly rewarding, interesting, and insightful. Crudely, here's how found working on both codebases:
+Honestly, I had a lot of fun trying to mirror the APIs as closely as possible while doing my best to keep the Python code "Pythonic" and the Swift code "Schwifty". The whole project/exercise was incredibly rewarding, interesting, and insightful. Crudely, here's how I found working on both packages:
 
 **Python**
 
@@ -135,4 +131,4 @@ So why? For fun! And procrastination. And, more seriously, because I needed some
 
 ### Warning
 
-<sup>‡</sup> marc 3.0+ is incompatible with marc 2.x
+<sup>‡</sup> marc 22.5+ is incompatible with marc 2.x
