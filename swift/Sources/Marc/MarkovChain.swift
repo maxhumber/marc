@@ -13,9 +13,9 @@ public class MarkovChain<Element: Hashable> {
     /// ```
     /// let chain = MarkovChain(["R", "P", "S"])
     /// ```
-    public init(_ sequence: [Element]) {
+    public init<S: Sequence>(_ sequence: S) where S.Element == Element {
         // reducing per: https://developer.apple.com/documentation/swift/dictionary/3127177-reduce
-        store = zip(sequence, sequence[1...]).reduce(into: Store()) { result, pair in
+        store = zip(sequence, sequence.dropFirst(1)).reduce(into: Store()) { result, pair in
             result[pair.0, default: [:]][pair.1, default: 0] += 1
         }
     }

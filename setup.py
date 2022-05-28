@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name="marc",
-    version="22.5.0",
+    version="22.5.1",
     url="https://github.com/maxhumber/marc",
     description="Markov chain generator",
     long_description=long_description,
@@ -20,11 +20,6 @@ setup(
     ],
     packages=[""],
     package_dir={"": "python/src"},
-    extras_require={
-        "dev": [
-            "black>=22.3.0",
-        ],
-    },
     python_requires=">=3.9",
     setup_requires=["setuptools>=62.1.0"],
 )
